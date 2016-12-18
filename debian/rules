@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+%:
+	dh $@
+
+ifeq (,$(filter $(DEB_HOST_ARCH), amd64 kfreebsd-amd64 arm64 mips64el ppc64el m68k powerpcspe))
+override_dh_auto_configure:
+	dh_auto_configure -- --disable-lua
+endif
+
+override_dh_installchangelogs:
+	dh_installchangelogs debian/changelog.txt
+
+override_dh_install:
+	find debian/tmp -name '*.la' -print0 | xargs -0 rm -v
+	dh_install --fail-missing

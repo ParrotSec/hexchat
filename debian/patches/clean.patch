@@ -1,0 +1,32 @@
+Description: properly remove another built file
+Author: Mattia Rizzolo <mattia@debian.org>
+Forwarded: https://github.com/hexchat/hexchat/pull/1889
+
+--- a/src/common/dbus/Makefile.am
++++ b/src/common/dbus/Makefile.am
+@@ -13,7 +13,12 @@
+ BUILT_SOURCES =				\
+ 	remote-object-glue.h
+ 
+-CLEANFILES = $(BUILT_SOURCES)
++# Dbus service file
++servicedir = $(DBUS_SERVICES_DIR)
++service_in_files = org.hexchat.service.service.in
++service_DATA = $(service_in_files:.service.in=.service)
++
++CLEANFILES = $(BUILT_SOURCES) $(service_DATA)
+ 
+ AM_CPPFLAGS = -I$(top_srcdir)/src/common $(COMMON_CFLAGS) $(DBUS_CFLAGS)
+ 
+@@ -24,11 +29,6 @@
+ remote-object-glue.h: remote-object.xml
+ 	$(AM_V_GEN) $(LIBTOOL) --mode=execute $(DBUS_BINDING_TOOL) --prefix=remote_object --mode=glib-server --output=$@ $<
+ 
+-# Dbus service file
+-servicedir = $(DBUS_SERVICES_DIR)
+-service_in_files = org.hexchat.service.service.in
+-service_DATA = $(service_in_files:.service.in=.service)
+-
+ # Rule to make the service file with bindir expanded
+ $(service_DATA): $(service_in_files) Makefile
+ 	@sed -e "s|\@bindir\@|$(bindir)|" $< > $@

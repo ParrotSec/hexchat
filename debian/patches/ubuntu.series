@@ -1,0 +1,9 @@
+0001-Ubuntu-server-defaults.patch
+0003-build-both-python-plugins.patch
+clean.patch
+
+revert_15600f405f2d5bda6ccf0dd73957395716e0d4d3.patch
+
+openssl/217fa9d0f9fe21d998672fd72c547ee68dfe1aac.patch
+openssl/1186236ac11d959bd7b2af5c53db065f3aa3da13.patch
+openssl/a0e80ebda2bc9270beb4818a2438d7555593b6fd.patch

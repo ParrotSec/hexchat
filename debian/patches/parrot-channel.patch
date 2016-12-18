@@ -1,0 +1,34 @@
+Description: Add parrot server and channel to the list.
+ hexchat (2.12.3-3parrot0) testing; urgency=medium
+ .
+   * Non-maintainer upload.
+   * Add parrot server and channel on list
+Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Last-Update: 2016-12-18
+
+--- a/src/common/servlist.c
++++ b/src/common/servlist.c
+@@ -50,6 +50,9 @@ struct defaultserver
+ 
+ static const struct defaultserver def[] =
+ {
++	{"ParrotSec", 0, 0, 0, LOGIN_NICKSERV},
++	/* Self signed */
++	{0,			"irc.frozenbox.org"},
+ 	{"2600net",	0},
+ 	/* Invalid hostname in cert */
+ 	{0,			"irc.2600.net"},
+--- a/src/fe-gtk/joind.c
++++ b/src/fe-gtk/joind.c
+@@ -256,6 +256,11 @@ joind_show_dialog (server *serv)
+ 			gtk_entry_set_text (GTK_ENTRY (entry1), "#debian");
+ 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(radiobutton2), TRUE);
+ 		}
++	if (g_ascii_strcasecmp(((ircnet*)serv->network)->name, "ParrotSec") == 0)
++		{
++			gtk_entry_set_text (GTK_ENTRY (entry1), "#parrot");
++			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(radiobutton2), TRUE);
++		}
+ 
+ 	gtk_widget_grab_focus (okbutton1);
+ 	gtk_widget_show_all (dialog1);

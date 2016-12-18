@@ -1,0 +1,152 @@
+hexchat (2.12.3-3parrot0) testing; urgency=medium
+
+  * Non-maintainer upload.
+  * Add parrot server and channel on list
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 18 Dec 2016 13:03:25 +0100
+
+hexchat (2.12.3-3) unstable; urgency=medium
+
+  * Actually disable Lua support when building.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Mon, 05 Dec 2016 16:03:26 +0100
+
+hexchat (2.12.3-2) unstable; urgency=medium
+
+  * Temporary restrict the build of hexchat-lua to the architectures where lua
+    is usable right now (see #845929).
+
+ -- Mattia Rizzolo <mattia@debian.org>  Mon, 05 Dec 2016 14:02:40 +0100
+
+hexchat (2.12.3-1) unstable; urgency=medium
+
+  [ Jesse Rhodes ]
+  * Add hexchat-dev package for .pc and .h files.
+  * Include dbus service file in hexchat-common.
+
+  [ Mattia Rizzolo ]
+  * Take over maintenance from Jasse Rhodes.
+    Thank you for all your work these years!  Closes: #844574
+  * debian/control:
+    + wrap-and-sort -ast.
+    + Bump Standards-Version to 3.9.8, no changes needed.
+    + Add proper Breaks/Replaces for the hexchat-dev addition-
+    + Have hexchat-plugins recommend hwdata for the sysinfo plugin.
+      Closes: #845940
+    + Have hexchat recommend the hexchat-otr plugin.
+      Thanks to Petter Reinholdtsen <pere@hungry.com> for the suggestion
+    + Bump the Breaks/Replaces of hexchat-plugins against hexchat;
+      hexchat-plugin.pc has been moved from hexchat to hexchat-plugins
+      in 2.12.0-1.  LP: #1586239
+    + Set appropriate Breaks/Replaces to cope with the Ubuntu delta and
+      make the package syncable.
+    + Mark hexchat-common as Multi-Arch:foreign (from the m-a hinter).
+  * debian/rules:
+    + Remove huge override_dh_auto_clean: if anything of that is needed,
+      it should be done on the upstream side.
+    + Remove *.la files before running dh_install.
+    + Use dh_install --fail-missing.
+  * Package the Lua plugin.  Closes: #834491
+  * Update upstream changelog for 2.13.2.
+  * Use dh_installchangelogs to install the upstream changelog, instead of
+    manually compressing in rules and the install with d/*.docs.
+  * Let the upstream build system put the manpage in place, instead of copying
+    it of our own.
+  * Add patch to properly clean the upstream sources and make possible to build
+    the package twice in a row.
+  * Bump debhelper compat level to 10.
+    + --with autoreconf is now default.
+  * debian/copyright:
+    + Make it DEP-5 compliant.
+    + Update.
+  * Drop nearly all lintian overrides; they are either fixed or unused.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Thu, 01 Dec 2016 18:30:03 +0100
+
+hexchat (2.12.3-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload, with maintainer ACK.
+
+  [ Jesse Rhodes ]
+  * Fixed vcs-git url.
+
+  [ Mattia Rizzolo ]
+  * Imported Upstream version 2.12.3.  Closes: #836809
+  * Refresh patches
+  * d/rules: disable LUA bindings, as they would require a new binary package.
+  * Add several patches from upstream to add support to OpenSSL 1.1.0.
+    Closes: #828339
+  * Revert upstream commit 15600f405f2d5bda6ccf0dd73957395716e0d4d3, which
+    would cause users to lose their scrollback.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Sun, 27 Nov 2016 13:41:25 +0100
+
+hexchat (2.12.0-2) unstable; urgency=medium
+
+  * Removed patch correcting for missing translations, 
+    as translations are no longer missing 
+  * Removed patch correcting spelling error that would break 
+    some scripts and themes
+  * Updated ubuntu server/channel defaults
+
+ -- Jesse Rhodes <drubo@drubo.net>  Wed, 30 Mar 2016 11:44:04 -0600
+
+hexchat (2.12.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Iceweasel no longer called Firefox in url dialog
+  * Building both python2 and python3 plugins
+  * Including hexchat-plugin.pc (Closes: 801767)
+
+ -- Jesse Rhodes <drubo@drubo.net>  Fri, 25 Mar 2016 10:54:57 -0600
+
+hexchat (2.10.2-1) unstable; urgency=medium
+
+  * New upstream release
+  * Includes upstream fixes for POODLE vulnerability 
+    (CVE-2014-3566)
+  * Split plugins into modular packages rather than having all 
+    binaries in the main hexchat package
+
+ -- Jesse Rhodes <drubo@drubo.net>  Fri, 28 Nov 2014 18:35:39 -0700
+
+hexchat (2.10.1-2) unstable; urgency=medium
+
+  * Fix ubuntu_defaults.patch (LP: #1390851)
+  * Disable SSLv3
+
+ -- Jesse Rhodes <drubo@drubo.net>  Sun, 16 Nov 2014 11:47:12 -0700
+
+hexchat (2.10.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * No longer build-depend on libsexy-dev
+  * URL handler dialog now labeled Iceweasel rather than Firefox
+
+ -- Jesse Rhodes <drubo@drubo.net>  Mon, 18 Aug 2014 21:18:55 -0600
+
+hexchat (2.10.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Removed patches for issues fixed by upstream
+  * Added default servers and recommended channels for debian 
+    and ubuntu (LP: #1294415)
+  * Upstream commit fa955a0f fixes xdcc segfault (Closes: #745764)
+
+ -- Jesse Rhodes <drubo@drubo.net>  Sun, 01 Jun 2014 16:45:22 -0600
+
+hexchat (2.9.6.1-2) unstable; urgency=low
+
+  * Now using dh-autoreconf instead of autotools-dev (Closes: #739630)
+  * Added gvfs-bin as Recommends so default url handlers work 
+    (Closes: #740006)
+  * Added unifont as Suggests for unicode symbol support
+  * Included png,svg icons in package 
+
+ -- Jesse Rhodes <drubo@drubo.net>  Tue, 25 Feb 2014 16:45:42 -0700
+
+hexchat (2.9.6.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #702075)
+
+ -- Jesse Rhodes <drubo@drubo.net>  Mon, 03 Feb 2014 19:09:17 -0700

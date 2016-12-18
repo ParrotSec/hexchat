@@ -1,0 +1,33 @@
+Description: revert upstream commit 15600f405f2d5bda6ccf0dd73957395716e0d4d3
+ This causes the scrollback directory to be all-lowercase, meaning people updating
+ to a version 1.12.3 and using network names with uppercase letters would lose
+ their scrollback.
+ Original commit:
+  Author:     Patrick Griffis <tingping@tingping.se>
+  AuthorDate: Sun Sep 11 15:49:06 2016 -0400
+  .
+    Sanitize network name for scrollback files
+  .
+   This prevents using invalid chars on Windows or creating directories
+Author: Mattia Rizzolo <mattia@debian.org>
+Last-Update: 2016-11-27
+Forwarded: no
+
+--- a/src/common/text.c
++++ b/src/common/text.c
+@@ -79,7 +79,6 @@
+ 	if (!net)
+ 		return NULL;
+ 
+-	net = log_create_filename (net);
+ 	buf = g_strdup_printf ("%s" G_DIR_SEPARATOR_S "scrollback" G_DIR_SEPARATOR_S "%s" G_DIR_SEPARATOR_S "%s.txt", get_xdir (), net, "");
+ 	mkdir_p (buf);
+ 	g_free (buf);
+@@ -90,7 +89,6 @@
+ 	else
+ 		buf = NULL;
+ 	g_free (chan);
+-	g_free (net);
+ 
+ 	if (buf)
+ 	{
